@@ -1,0 +1,76 @@
+<div class="alg">
+  <div class="alg-config">
+    <h2 class="heading">
+      <mat-icon>settings</mat-icon>
+      <span>Settings</span>
+    </h2>
+
+    <div class="alg-settings">
+      <mat-form-field>
+        <mat-select placeholder="Algorithm" [(ngModel)]="aglorithmIndex"
+          [disabled]="state.value === 'automatic'">
+          <mat-option *ngFor="let algorithm of algorithms; let i = index" [value]="i">
+            {{ algorithm.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="delay" type="number" placeholder="Delay (ms)" min="0"
+          [disabled]="state.value === 'automatic'">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="arraySize" type="number" placeholder="Array size" min="2"
+          [disabled]="state.value === 'automatic'" (change)="onArraySizeChange()">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="alg-stats">
+    <h2 class="heading">
+      <mat-icon>bar_chart</mat-icon>
+      <span>Statistics</span>
+    </h2>
+    <p>
+      Total comparisons:
+      <b>{{ currentAlgorithm.comparisonCount }}</b>
+    </p>
+    <p>
+      Total swaps:
+      <b>{{ currentAlgorithm.swapCount }}</b>
+    </p>
+  </div>
+</div>
+
+
+<mat-divider></mat-divider>
+
+<div class="bar-list-wrapper" #barListWrapper>
+  <app-bar-list [bars]="bars"></app-bar-list>
+</div>
+
+<div class="resize-wrapper">
+  <app-resize [target]="barListWrapper"></app-resize>
+</div>
+
+<mat-divider></mat-divider>
+
+
+<div class="alg-controls">
+  <button mat-button color="primary" (click)="onPreviousClick()"
+    [disabled]="state.value !== 'paused' && state.value !== 'completed'">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <button mat-button color="primary" (click)="onPauseClick()" *ngIf="state.value === 'automatic'">
+    <mat-icon>pause</mat-icon>
+  </button>
+  <button mat-button color="primary" (click)="onStartClick()" *ngIf="state.value !== 'automatic'"
+    [disabled]="state.value === 'completed'">
+    <mat-icon>play_arrow</mat-icon>
+  </button>
+  <button mat-button color="primary" (click)="onNextClick()"
+    [disabled]="state.value !== 'paused' && state.value !== 'pristine'">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+</div>

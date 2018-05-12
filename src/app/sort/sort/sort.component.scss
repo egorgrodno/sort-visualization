@@ -1,0 +1,90 @@
+.alg {
+  display: flex;
+  margin-left: -12px;
+  margin-right: -12px;
+  margin-bottom: 6px;
+
+  .alg-config,
+  .alg-stats {
+    flex-basis: 50%;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+  }
+
+  .alg-config {
+    .alg-settings {
+      display: flex;
+      margin-left: -6px;
+      margin-right: -6px;
+
+      .mat-form-field {
+        flex-basis: 33.333%;
+        padding-left: 6px;
+        padding-right: 6px;
+
+      }
+      .mat-form-field::ng-deep .mat-form-field-infix {
+        width: inherit;
+      }
+    }
+  }
+
+  .alg-stats {
+    p {
+      font-size: 12px;
+      line-height: 16px;
+      margin-bottom: 4px;
+
+      b {
+        font-weight: 500;
+      }
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.bar-list-wrapper {
+  padding-top: 18px;
+  padding-bottom: 12px;
+  height: 300px;
+}
+
+.resize-wrapper {
+  margin-bottom: 18px;
+}
+
+.alg-controls {
+  display: flex;
+  justify-content: center;
+}
+
+
+.mat-expansion-panel-header-title {
+  .mat-icon {
+    margin-right: 6px;
+  }
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-panel-header-title {
+  align-items: center;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  color: rgba(0,0,0,.7);
+
+  .mat-icon {
+    margin-right: 6px;
+  }
+  span {
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+}

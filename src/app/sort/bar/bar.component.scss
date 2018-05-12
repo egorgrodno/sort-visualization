@@ -1,0 +1,17 @@
+:host {
+  flex-grow: 1;
+  margin-left: 1px;
+  margin-right: 1px;
+  border-radius: 2px;
+  background-color: #3f51b5;
+}
+
+:host.checking {
+  background-color: #7580bd;
+}
+:host.swapping {
+  background-color: #ffafaf;
+}
+:host.completed {
+  background-color: #3fc380;
+}

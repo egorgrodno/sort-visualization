@@ -1,0 +1,54 @@
+.mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding-left: 28px;
+  user-select: none;
+  cursor: default;
+  height: 56px;
+
+  .mat-icon {
+    margin-right: 6px;
+  }
+
+  span {
+    font-size: 15px;
+  }
+}
+
+.container {
+  position: absolute;
+  z-index: 1;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+
+  .page-header {
+    background-color: #3f51b5;
+    padding-left: 28px;
+    height: 223px;
+
+    h1 {
+      font-weight: 300;
+      margin: 0;
+      padding-top: 28px;
+      padding-bottom: 28px;
+      padding-left: 24px;
+      font-size: 20px;
+      color: #fff;
+    }
+  }
+
+  .mat-card {
+    background-color: #fafafa;
+    margin-left: 28px;
+    margin-right: 28px;
+    margin-top: -135px;
+
+    margin-bottom: 1000px;
+  }
+}

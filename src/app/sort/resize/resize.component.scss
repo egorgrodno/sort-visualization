@@ -1,0 +1,15 @@
+:host {
+  cursor: row-resize;
+  transition: .1s ease-out;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  background-color: #f2f2f2;
+  border-radius: 2px;
+}
+:host:hover {
+  background-color: #ececec;
+}
+:host:active {
+  background-color: #cacaca;
+}
