@@ -33,7 +33,6 @@ export class BetterBubbleSort extends BubbleSort {
   public increment(): void {
     this.iteration++;
 
-    console.log(this.iteration, this.cycleLength);
     if (this.iteration >= this.cycleLength) {
       const lastSwapActionInCurrentCycle = this.getLastSwapActionInCurrentCycle();
 
