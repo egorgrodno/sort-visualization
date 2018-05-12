@@ -1,5 +1,3 @@
-import { Subject } from 'rxjs';
-
 import { Bar } from '../bar/bar';
 import { swapArrayValues } from '../../shared/utils';
 import { Algorithm, Action, ActionType } from './algorithm';
@@ -70,8 +68,23 @@ export class BubbleSort extends Algorithm {
     return this.actions.length === 0;
   }
 
+  public reset(bars?: Bar[]): void {
+    if (bars) {
+      this.bars = bars;
+    }
+
+    this.bars.forEach((bar) => bar.setState('default'));
+    this.actions = [];
+    this.currentAction = null;
+    this.iteration = -1;
+    this.cycleLength = this.bars.length - 1;
+    this.isCleanCycle = true;
+    this.comparisonCount = 0;
+    this.swapCount = 0;
+  }
+
   public get isLastIteration(): boolean {
-    return this.iteration === this.bars.length - 2;
+    return this.iteration === this.cycleLength - 1;
   }
 
   public get isCompleted(): boolean {
@@ -153,6 +166,6 @@ export class BubbleSort extends Algorithm {
   }
 
   public increment(): void {
-    this.iteration = (this.iteration + 1) % (this.bars.length - 1);
+    this.iteration = (this.iteration + 1) % this.cycleLength;
   }
 }

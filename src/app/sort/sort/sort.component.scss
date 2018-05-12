@@ -5,27 +5,63 @@
   margin-bottom: 6px;
 
   .alg-config,
+  .alg-data,
   .alg-stats {
-    flex-basis: 50%;
+    flex-basis: 33.333%;
     padding-left: 12px;
     padding-right: 12px;
     box-sizing: border-box;
   }
-
-  .alg-config {
-    .alg-settings {
+  .alg-config,
+  .alg-data {
+    .alg-config-body,
+    .alg-data-body {
       display: flex;
       margin-left: -6px;
       margin-right: -6px;
 
       .mat-form-field {
-        flex-basis: 33.333%;
         padding-left: 6px;
         padding-right: 6px;
-
       }
       .mat-form-field::ng-deep .mat-form-field-infix {
         width: inherit;
+      }
+    }
+  }
+
+  .alg-config {
+    .alg-config-body {
+      .mat-form-field:nth-child(1) {
+        flex-basis: 75%;
+      }
+      .mat-form-field:nth-child(2) {
+        flex-basis: 25%;
+      }
+    }
+  }
+
+  .alg-data {
+    .alg-data-body {
+      align-items: flex-end;
+
+      .mat-form-field {
+        flex-basis: 25%;
+      }
+
+      .btn-list {
+        display: flex;
+        flex-basis: 75%;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 6px;
+        padding-right: 6px;
+        padding-bottom: 1.25em;
+
+        .mat-raised-button {
+          flex-basis: calc(33.333% - 6px);
+          min-width: 0;
+        }
       }
     }
   }

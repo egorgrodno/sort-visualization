@@ -13,14 +13,14 @@ export type SortStateType = 'pristine' | 'paused' | 'automatic' | 'completed';
 @Component({
   selector: 'app-sort',
   templateUrl: './sort.component.html',
-  styleUrls: ['./sort.component.scss']
+  styleUrls: ['./sort.component.scss'],
 })
 export class SortComponent implements OnInit {
-  public bars: Bar[];
+  public array: Bar[];
 
   public state = new BehaviorSubject<SortStateType>('pristine');
-  public delay = 100;
-  public arraySize = 25;
+  public delay = 45;
+  public arraySize = 35;
   public aglorithmIndex = 0;
 
   public algorithms = ALGORITHMS;
@@ -31,11 +31,42 @@ export class SortComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._appService.setTitle(this.algorithms[this.aglorithmIndex].name);
-    this.bars = this.createBars(this.arraySize);
-    this.currentAlgorithm = new (this.algorithms[this.aglorithmIndex].useClass as any)(this.bars);
+    this.onAlgorithmIndexChange(true);
   }
 
+  /**
+   * Array manipulation functions
+   */
+  public createArray(): Bar[] {
+    Bar.counter = this.arraySize;
+    const array = new Array(this.arraySize) as Bar[];
+
+    for (let i = 0; i < this.arraySize; i++) {
+      array[i] = new Bar(i + 1);
+    }
+
+    return array;
+  }
+
+  public shuffleArray(array: Bar[]): Bar[] {
+    const arrayCopy = array.slice();
+
+    for (let i = 0; i < this.arraySize; i++) {
+      swapArrayValues(arrayCopy, i, getRandomInt(0, this.arraySize));
+    }
+
+    return arrayCopy;
+  }
+
+  public sortArray(array: Bar[]): Bar[] {
+    return array.sort((b1, b2) => b1.value > b2.value ? 1 : b1.value < b2.value ? -1 : 0);
+  }
+
+
+  /**
+   * User event handler functions:
+   * - sort player handler functions
+   */
   public onStartClick(): void {
     this.state.next('automatic');
     interval(this.delay)
@@ -47,12 +78,6 @@ export class SortComponent implements OnInit {
         filter((isCompleted) => isCompleted)
       )
       .subscribe(() => this.state.next('completed'));
-
-  }
-
-  public onArraySizeChange() {
-    this.bars = this.createBars(this.arraySize);
-    this.currentAlgorithm = new (this.algorithms[this.aglorithmIndex].useClass as any)(this.bars);
   }
 
   public onPauseClick(): void {
@@ -77,17 +102,56 @@ export class SortComponent implements OnInit {
     }
   }
 
-  public createBars(amount: number): Bar[] {
-    Bar.counter = amount;
-    const bars = new Array(amount) as Bar[];
 
-    for (let i = 0; i < amount; i++) {
-      bars[i] = new Bar(i+1);
-    }
-    for (let i = 0; i < amount * 2; i++) {
-      swapArrayValues(bars, getRandomInt(0, amount), getRandomInt(0, amount));
+  /**
+   * - configuration handler functions
+   */
+  public onAlgorithmIndexChange(isFirstChange = false) {
+    this._appService.setTitle(this.algorithms[this.aglorithmIndex].name);
+
+    if (isFirstChange) {
+      this.array = this.shuffleArray(this.createArray());
+    } else {
+      this.array = this.shuffleArray(this.array);
+      this.currentAlgorithm.reset();
     }
 
-    return bars;
+    this.state.next('pristine');
+    this.currentAlgorithm = new (this.algorithms[this.aglorithmIndex].useClass as any)(this.array);
+  }
+
+  /**
+   * - data management handler functions
+   */
+  public onArraySizeChange() {
+    if (this.state.value !== 'pristine') {
+      this.state.next('pristine');
+    }
+    this.array = this.shuffleArray(this.createArray());
+    this.currentAlgorithm = new (this.algorithms[this.aglorithmIndex].useClass as any)(this.array);
+  }
+
+  public onResetClick(): void {
+    if (this.state.value !== 'pristine') {
+      this.state.next('pristine');
+    }
+    this.array = this.shuffleArray(this.array);
+    this.currentAlgorithm.reset(this.array);
+  }
+
+  public onInstantSortClick(): void {
+    if (this.state.value !== 'pristine') {
+      this.state.next('pristine');
+    }
+    this.array = this.sortArray(this.array);
+    this.currentAlgorithm.reset(this.array);
+  }
+
+  public onReverseClick(): void {
+    if (this.state.value !== 'pristine') {
+      this.state.next('pristine');
+    }
+    this.array = this.array.slice().reverse();
+    this.currentAlgorithm.reset(this.array);
   }
 }

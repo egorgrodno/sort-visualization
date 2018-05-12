@@ -2,13 +2,13 @@
   <div class="alg-config">
     <h2 class="heading">
       <mat-icon>settings</mat-icon>
-      <span>Settings</span>
+      <span>Configuration</span>
     </h2>
 
-    <div class="alg-settings">
+    <div class="alg-config-body">
       <mat-form-field>
         <mat-select placeholder="Algorithm" [(ngModel)]="aglorithmIndex"
-          [disabled]="state.value === 'automatic'">
+          [disabled]="state.value === 'automatic'" (selectionChange)="onAlgorithmIndexChange()">
           <mat-option *ngFor="let algorithm of algorithms; let i = index" [value]="i">
             {{ algorithm.name }}
           </mat-option>
@@ -16,14 +16,37 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="delay" type="number" placeholder="Delay (ms)" min="0"
+        <input matInput [(ngModel)]="delay" type="number" placeholder="Iteration delay (ms)" min="0"
           [disabled]="state.value === 'automatic'">
       </mat-form-field>
+    </div>
+  </div>
 
+  <div class="alg-data">
+    <h2 class="heading">
+      <mat-icon>storage</mat-icon>
+      <span>Data Management</span>
+    </h2>
+    <div class="alg-data-body">
       <mat-form-field>
         <input matInput [(ngModel)]="arraySize" type="number" placeholder="Array size" min="2"
           [disabled]="state.value === 'automatic'" (change)="onArraySizeChange()">
       </mat-form-field>
+
+      <div class="btn-list">
+        <button mat-raised-button title="Reset" (click)="onResetClick()"
+          [disabled]="state.value === 'automatic'">
+          <mat-icon>replay</mat-icon>
+        </button>
+        <button mat-raised-button title="Instant sort" (click)="onInstantSortClick()"
+          [disabled]="state.value === 'automatic'">
+          <mat-icon>sort</mat-icon>
+        </button>
+        <button mat-raised-button title="Reverse" (click)="onReverseClick()"
+          [disabled]="state.value === 'automatic'">
+          <mat-icon>swap_horiz</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -47,7 +70,7 @@
 <mat-divider></mat-divider>
 
 <div class="bar-list-wrapper" #barListWrapper>
-  <app-bar-list [bars]="bars"></app-bar-list>
+  <app-bar-list [bars]="array"></app-bar-list>
 </div>
 
 <div class="resize-wrapper">
