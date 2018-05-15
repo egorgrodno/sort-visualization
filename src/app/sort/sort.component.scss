@@ -1,72 +1,115 @@
-.alg {
-  display: flex;
-  margin-left: -12px;
-  margin-right: -12px;
-  margin-bottom: 6px;
+.mat-card {
+  padding-bottom: 0;
+}
 
-  .alg-config,
-  .alg-data,
-  .alg-stats {
-    flex-basis: 33.333%;
-    padding-left: 12px;
-    padding-right: 12px;
-    box-sizing: border-box;
+h2.heading {
+  display: flex;
+  align-items: center;
+  color: rgba(0,0,0,.75);
+
+  .mat-icon {
+    margin-right: 6px;
   }
-  .alg-config,
-  .alg-data {
-    .alg-config-body,
-    .alg-data-body {
+  span {
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+}
+
+.resize-button {
+  background-color: #f2f2f2;
+  border-radius: 2px;
+  display: flex;
+  transition: background-color .1s ease-out;
+  user-select: none;
+  cursor: pointer;
+  color: #3f51b5;
+}
+.resize-button:hover {
+  background-color: #ececec;
+}
+.resize-button:active {
+  background-color: #cacaca;
+}
+
+.body {
+  display: flex;
+  margin-bottom: 18px;
+
+  .body-left {
+    flex-basis: 100%;
+
+    .bar-list-wrapper {
+      height: 300px;
+    }
+
+    .resize-wrapper {
+      margin-top: 18px;
+    }
+
+    .resize-button {
+      cursor: row-resize;
+      justify-content: center;
+      margin-top: 18px;
+    }
+  }
+
+  .body-right {
+    display: flex;
+    flex-shrink: 0;
+
+    .resize-button {
+      align-items: center;
+      margin-left: 18px;
+      .mat-icon {
+        transition: transform .15s;
+      }
+    }
+    .resize-button.isVisible {
+      .mat-icon {
+        transform: rotate(180deg);
+      }
+    }
+
+    .settings-block-wrapper {
+      overflow: hidden;
+
+      .settings-block {
+        padding-left: 18px;
+      }
+    }
+
+    .input-row {
       display: flex;
       margin-left: -6px;
       margin-right: -6px;
 
+
       .mat-form-field {
-        padding-left: 6px;
-        padding-right: 6px;
+        flex-basis: 50%;
+        margin-left: 6px;
+        margin-right: 6px;
       }
+
       .mat-form-field::ng-deep .mat-form-field-infix {
         width: inherit;
       }
     }
-  }
 
-  .alg-config {
-    .alg-config-body {
-      .mat-form-field:nth-child(1) {
-        flex-basis: 75%;
-      }
-      .mat-form-field:nth-child(2) {
-        flex-basis: 25%;
-      }
-    }
-  }
+    .button-row {
+      display: flex;
+      margin-left: -6px;
+      margin-right: -6px;
+      margin-bottom: 1.25em;
 
-  .alg-data {
-    .alg-data-body {
-      align-items: flex-end;
-
-      .mat-form-field {
-        flex-basis: 25%;
-      }
-
-      .btn-list {
-        display: flex;
-        flex-basis: 75%;
-        align-items: center;
-        justify-content: space-between;
-        padding-left: 6px;
-        padding-right: 6px;
-        padding-bottom: 1.25em;
-
-        .mat-raised-button {
-          flex-basis: calc(25% - 6px);
-          min-width: 0;
-        }
+      .mat-raised-button {
+        flex-basis: 50%;
+        margin-left: 6px;
+        margin-right: 6px;
       }
     }
-  }
 
-  .alg-stats {
     p {
       font-size: 12px;
       line-height: 16px;
@@ -83,44 +126,9 @@
   }
 }
 
-.bar-list-wrapper {
-  padding-top: 18px;
-  padding-bottom: 12px;
-  height: 300px;
-}
-
-.resize-wrapper {
-  margin-bottom: 18px;
-}
-
-.alg-controls {
+.player {
   display: flex;
   justify-content: center;
-}
-
-
-.mat-expansion-panel-header-title {
-  .mat-icon {
-    margin-right: 6px;
-  }
-}
-
-.mat-expansion-panel-header-description,
-.mat-expansion-panel-header-title {
-  align-items: center;
-}
-
-.heading {
-  display: flex;
-  align-items: center;
-  color: rgba(0,0,0,.7);
-
-  .mat-icon {
-    margin-right: 6px;
-  }
-  span {
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: uppercase;
-  }
+  padding-top: 6px;
+  padding-bottom: 6px;
 }

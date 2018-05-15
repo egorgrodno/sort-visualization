@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Inject, Input, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Inject, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
-import { Subject, fromEvent } from 'rxjs';
+import { Subject, Subscription, fromEvent } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, takeUntil } from 'rxjs/operators';
 
-const MIN_HEIGHT = 150;
+const MIN_HEIGHT = 265;
 const DEFAULT_HEIGHT = 300;
 
 @Component({
@@ -12,25 +12,26 @@ const DEFAULT_HEIGHT = 300;
   styleUrls: ['./resize.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResizeComponent implements OnInit {
+export class ResizeComponent implements OnInit, OnDestroy {
 
   @Input() target: HTMLDivElement;
 
   public targetHeight = DEFAULT_HEIGHT;
+  private mouseDownSub: Subscription;
 
   constructor(
-    @Inject(DOCUMENT) private _doc: Document,
-    private _renderer: Renderer2,
-    private _host: ElementRef,
+    @Inject(DOCUMENT) private doc: Document,
+    private renderer: Renderer2,
+    private host: ElementRef,
   ) { }
 
   ngOnInit() {
-    fromEvent(this._host.nativeElement, 'mousedown')
+    this.mouseDownSub = fromEvent(this.host.nativeElement, 'mousedown')
       .pipe(
         switchMap(
-          () => fromEvent(this._doc.documentElement, 'mousemove').pipe(
+          () => fromEvent(this.doc.documentElement, 'mousemove').pipe(
             map((event: MouseEvent) => event.movementY),
-            takeUntil(fromEvent(this._doc.documentElement, 'mouseup')),
+            takeUntil(fromEvent(this.doc.documentElement, 'mouseup')),
           ),
         ),
         map((movementY) => movementY + this.targetHeight),
@@ -38,7 +39,11 @@ export class ResizeComponent implements OnInit {
         distinctUntilChanged(),
       ).subscribe((height) => {
         this.targetHeight = height;
-        this._renderer.setStyle(this.target, 'height', `${height}px`);
+        this.renderer.setStyle(this.target, 'height', `${height}px`);
       });
+  }
+
+  ngOnDestroy() {
+    this.mouseDownSub.unsubscribe();
   }
 }

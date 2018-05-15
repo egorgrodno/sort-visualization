@@ -1,3 +1,4 @@
+import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { BehaviorSubject, Observable, Subscription, fromEvent, interval, of } from 'rxjs';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
@@ -21,10 +22,26 @@ const MAX_ARRAY_SIZE = 50;
   selector: 'app-sort',
   templateUrl: './sort.component.html',
   styleUrls: ['./sort.component.scss'],
+  animations: [
+    trigger('settingsBlockAnim', [
+      transition(':leave', [
+        animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 0, transform: 'translateX(20px)' })),
+        style({ width: '*', height: 0 }),
+        animate('200ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ width: 0 })),
+      ]),
+      transition(':enter', [
+        style({ width: 0 , height: 0, opacity: 0, transform: 'translateX(20px)' }),
+        animate('200ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ width: '*' })),
+        style({ height: '*' }),
+        animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 1, transform: 'none' })),
+      ]),
+    ]),
+  ],
 })
 export class SortComponent implements OnInit, OnDestroy {
   @ViewChild('arraySizeInput') arraySizeInput: ElementRef;
 
+  public isSettingsBlockVisible = true;
   public state = new BehaviorSubject<SortState>(SortState.Pristine);
   public delay = 10;
   public arraySize = 50;
@@ -42,18 +59,25 @@ export class SortComponent implements OnInit, OnDestroy {
   constructor(
     private appService: AppService,
     private dialog: MatDialog,
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.barList = new BarList();
     this.barList.setArraySize(this.arraySize);
     this.onAlgorithmIndexChange();
-    this.bindArraySizeInput();
   }
 
   ngOnDestroy() {
     this.arraySizeInputSub.unsubscribe();
+  }
+
+  public onSettingsBlockAnimDone(event: AnimationEvent): void {
+    if (event.toState === null) {
+      this.bindArraySizeInput();
+    } else {
+      this.arraySizeInputSub.unsubscribe();
+      this.arraySizeInputSub = null;
+    }
   }
 
   public bindArraySizeInput(): void {

@@ -1,0 +1,19 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  background-color: #f2f2f2;
+}
+
+.mat-button.icon-button,
+.mat-raised-button.icon-button {
+  .mat-icon {
+    margin-left: -6px;
+    margin-right: 6px;
+  }
+
+  .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
