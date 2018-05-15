@@ -1,6 +1,6 @@
 import { BubbleSort } from './bubble-sort.algorithm';
 import { CocktailSort } from './cocktail-sort.algorithm';
-import { InsertionSort } from './inserion-sort.algorithm';
+import { InsertionSort } from './insertion-sort.algorithm';
 import { MergeSort } from './merge-sort.algorithm';
 import { QuickSort } from './quick-sort.algorithm';
 import { SelectionSort } from './selection-sort.algorithm';

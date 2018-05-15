@@ -1,5 +1,7 @@
 # Sort visualization
 
+![Preview](./preview.png)
+
 Sort visualization application inspired by [this video](https://www.youtube.com/watch?v=kPRA0W1kECg). The main purpose of the app is to show sort algorithms step by step, their differences and similarities in a handy UI.
 
 ## Development server
@@ -10,12 +12,11 @@ Run `$ yarn start` for a dev server. Navigate to `http://localhost:4200/`. The a
 
 Run `$ yarn build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Todos
+## Supported algorithms
 
-- Add theming support
-- Animations
-- Coctail sort
-- Selection sort
-- Merge sort
-- Quick sort
-- Bogo sort
+- Bubble Sort
+- Cocktail Sort
+- Insertion Sort
+- Merge Sort
+- Quick Sort
+- Selection Sort
