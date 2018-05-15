@@ -75,6 +75,13 @@ export class BarList {
   }
 
   /**
+   * Transforms value to barValue and sets it
+   */
+  public setBarValue(index: number, newBarValue: number): void {
+    this.bars[index].setValue(newBarValue / this.bars.length * 100);
+  }
+
+  /**
    * Swaps bar values
    */
   public swapBarValues(i1: number, i2: number): void {

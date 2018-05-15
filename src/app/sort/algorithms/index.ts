@@ -1,8 +1,9 @@
-import { Type } from '@angular/core';
-
-import { BetterBubbleSort } from './better-bubble-sort.algorithm';
 import { BubbleSort } from './bubble-sort.algorithm';
 import { CocktailSort } from './cocktail-sort.algorithm';
+import { InsertionSort } from './inserion-sort.algorithm';
+import { MergeSort } from './merge-sort.algorithm';
+import { QuickSort } from './quick-sort.algorithm';
+import { SelectionSort } from './selection-sort.algorithm';
 
 export { Algorithm } from './algorithm';
 
@@ -13,9 +14,18 @@ export const ALGORITHMS: { name: string, useClass: Algorithm }[] = [{
   name: 'Bubble Sort',
   useClass: BubbleSort,
 }, {
-  name: 'Better Bubble Sort',
-  useClass: BetterBubbleSort,
-}, {
   name: 'Cocktail Sort',
   useClass: CocktailSort,
+}, {
+  name: 'Selection Sort',
+  useClass: SelectionSort,
+}, {
+  name: 'Insertion Sort',
+  useClass: InsertionSort,
+}, {
+  name: 'Merge Sort',
+  useClass: MergeSort,
+}, {
+  name: 'Quick Sort',
+  useClass: QuickSort,
 }];

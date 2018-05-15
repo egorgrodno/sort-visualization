@@ -3,6 +3,8 @@ export enum BarState {
   Checking,
   Swapping,
   Completed,
+  SwappingToShadowArray,
+  SwappingFromShadowArray,
 }
 
 export class Bar {

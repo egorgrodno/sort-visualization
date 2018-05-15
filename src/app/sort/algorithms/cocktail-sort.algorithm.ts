@@ -2,8 +2,6 @@ import { ActionList, Algorithm } from './algorithm';
 import { BarState } from '../bar/bar';
 
 export class CocktailSort extends Algorithm {
-  protected arraySize: number;
-
   protected sortArray(array: Uint16Array): void {
     const arrayCopy = array.slice();
     const actions: ActionList = {};
@@ -17,18 +15,17 @@ export class CocktailSort extends Algorithm {
 
     while (!isSorted) {
       arrayIndex += order;
-      actionIndex++;
 
       if (arrayCopy[arrayIndex] > arrayCopy[arrayIndex + 1]) {
         [ arrayCopy[arrayIndex], arrayCopy[arrayIndex + 1] ] = [ arrayCopy[arrayIndex + 1], arrayCopy[arrayIndex] ];
         lastSwapInCycleIndex = arrayIndex;
-        actions[actionIndex] = {
+        actions[++actionIndex] = {
           firstIndex: arrayIndex,
           secondIndex: arrayIndex + 1,
           state: BarState.Swapping,
         };
       } else {
-        actions[actionIndex] = {
+        actions[++actionIndex] = {
           firstIndex: arrayIndex,
           secondIndex: arrayIndex + 1,
           state: BarState.Checking,
@@ -55,11 +52,7 @@ export class CocktailSort extends Algorithm {
       }
     }
 
-    actions[actionIndex + 1] = {
-      firstIndex: -1,
-      secondIndex: -1,
-      state: BarState.Completed,
-    };
+    actions[actionIndex + 1] = this.getCompletedAction();
 
     this.actions = actions;
     this.arraySize = arrayCopy.length;

@@ -43,6 +43,9 @@ h2.heading {
     .bar-list-wrapper {
       height: 300px;
     }
+    .bar-list-wrapper.animated::ng-deep .bar {
+      transition: height .1s ease-out;
+    }
 
     .resize-wrapper {
       margin-top: 18px;

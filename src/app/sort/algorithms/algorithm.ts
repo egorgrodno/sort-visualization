@@ -1,19 +1,48 @@
 import { BarList } from '../bar-list/bar-list';
 import { BarState } from '../bar/bar';
 
-export interface ActionList {
-  [key: number]: Action;
+/**
+ * Just in case I would need to add
+ * property to all types of actions
+ */
+interface BaseAction {
+  state: BarState;
 }
 
-export interface Action {
-  state: BarState,
+interface CompleteAction extends BaseAction {
+  state: BarState.Completed;
+}
+
+interface CheckOrSwapAction extends BaseAction {
+  state: BarState.Checking | BarState.Swapping;
   firstIndex: number;
   secondIndex: number;
 }
 
+interface SwapToShadowAction extends BaseAction {
+  state: BarState.SwappingToShadowArray;
+  index: number;
+}
+
+interface SwapFromShadowAction extends BaseAction {
+  state: BarState.SwappingFromShadowArray;
+  index: number;
+  value: number;
+  newValue: number;
+}
+
+type Action = CompleteAction
+  | CheckOrSwapAction
+  | SwapToShadowAction
+  | SwapFromShadowAction;
+
+export interface ActionList {
+  [key: number]: Action;
+}
+
 export abstract class Algorithm {
   protected abstract sortArray(array: Uint16Array): void;
-  protected abstract arraySize: number;
+  protected arraySize: number;
 
   /**
    * Action (manipulation) history
@@ -57,7 +86,7 @@ export abstract class Algorithm {
 
     if (this.currentAction.state === BarState.Checking) {
       this.comparisonCount++;
-    } else if (this.currentAction.state === BarState.Swapping) {
+    } else if (this.currentAction.state === BarState.Swapping || this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
       this.swapCount++;
     }
 
@@ -73,7 +102,7 @@ export abstract class Algorithm {
     if (this.currentAction) {
       if (this.currentAction.state === BarState.Checking) {
         this.comparisonCount--;
-      } else if (this.currentAction.state === BarState.Swapping) {
+      } else if (this.currentAction.state === BarState.Swapping || this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
         this.swapCount--;
       }
       this.cancelCurrentAction();
@@ -91,13 +120,23 @@ export abstract class Algorithm {
   }
 
   private displayCurrentAction(): void {
-    this.barList.setBarState(this.currentAction.firstIndex, this.currentAction.state);
-    this.barList.setBarState(this.currentAction.secondIndex, this.currentAction.state);
+    if (this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
+      this.barList.setBarState(this.currentAction.index, this.currentAction.state);
+    } else {
+      /** Action state can't be Completed at this point */
+      this.barList.setBarState((this.currentAction as CheckOrSwapAction).firstIndex, this.currentAction.state);
+      this.barList.setBarState((this.currentAction as CheckOrSwapAction).secondIndex, this.currentAction.state);
+    }
   }
 
   private flushCurrentAction(): void {
-    this.barList.setBarState(this.currentAction.firstIndex, BarState.Default);
-    this.barList.setBarState(this.currentAction.secondIndex, BarState.Default);
+    if (this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
+      this.barList.setBarState(this.currentAction.index, BarState.Default);
+    } else {
+      /** Action state can't be Completed at this point */
+      this.barList.setBarState((this.currentAction as CheckOrSwapAction).firstIndex, BarState.Default);
+      this.barList.setBarState((this.currentAction as CheckOrSwapAction).secondIndex, BarState.Default);
+    }
   }
 
   private handleCurrentAction(): void {
@@ -108,6 +147,11 @@ export abstract class Algorithm {
       this.barList.swapBarValues(this.currentAction.firstIndex, this.currentAction.secondIndex);
       this.barList.setBarState(this.currentAction.firstIndex, BarState.Swapping);
       this.barList.setBarState(this.currentAction.secondIndex, BarState.Swapping);
+    } else if (this.currentAction.state === BarState.SwappingToShadowArray) {
+      this.barList.setBarState(this.currentAction.index, BarState.SwappingToShadowArray);
+    } else if (this.currentAction.state === BarState.SwappingFromShadowArray) {
+      this.barList.setBarValue(this.currentAction.index, this.currentAction.newValue);
+      this.barList.setBarState(this.currentAction.index, BarState.SwappingFromShadowArray);
     } else if (this.currentAction.state === BarState.Completed) {
       for (let i = 0, arraySize = this.arraySize; i < arraySize; i++) {
         this.barList.setBarState(i, BarState.Completed);
@@ -120,6 +164,11 @@ export abstract class Algorithm {
       for (let i = 0, arraySize = this.arraySize; i < arraySize; i++) {
         this.barList.setBarState(i, BarState.Default);
       }
+    } else if (this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
+      this.barList.setBarState(this.currentAction.index, BarState.Default);
+      if (this.currentAction.state === BarState.SwappingFromShadowArray) {
+        this.barList.setBarValue(this.currentAction.index, this.currentAction.value);
+      }
     } else {
       if (this.currentAction.state === BarState.Swapping) {
         this.barList.swapBarValues(this.currentAction.firstIndex, this.currentAction.secondIndex);
@@ -127,5 +176,9 @@ export abstract class Algorithm {
       this.barList.setBarState(this.currentAction.firstIndex, BarState.Default);
       this.barList.setBarState(this.currentAction.secondIndex, BarState.Default);
     }
+  }
+
+  protected getCompletedAction(): Action {
+    return { state: BarState.Completed };
   }
 }

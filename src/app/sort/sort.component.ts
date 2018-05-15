@@ -87,6 +87,7 @@ export class SortComponent implements OnInit, OnDestroy {
         map((event: Event) => (event.target as HTMLInputElement).value),
         filter((value) => /^\d+$/.test(value)),
         map((value) => Number(value)),
+        filter((value) => value >= 5),
         /** Ensure value changed */
         debounceTime(500),
         distinctUntilChanged(),
@@ -162,6 +163,7 @@ export class SortComponent implements OnInit, OnDestroy {
   }
 
   public onArraySizeChange() {
+    this.setState(SortState.Pristine);
     this.barList.setArraySize(this.arraySize);
     this.barList.triggerChange();
     this.currentAlgorithm.reSort();
