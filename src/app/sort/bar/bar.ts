@@ -1,23 +1,17 @@
-export type BarStateType = 'default' | 'checking' | 'swapping' | 'completed';
+export enum BarState {
+  Default,
+  Checking,
+  Swapping,
+  Completed,
+}
 
 export class Bar {
-  public static counter = 0;
-
-  public state: BarStateType = 'default';
-  public valuePercentage: number;
-
   constructor(
-    public value: number,
-  ) {
-    this.setValue(value);
-  }
+    public value = 0,
+    public state = BarState.Default,
+  ) { }
 
-  public setState(state: BarStateType): void {
-    this.state = state;
-  }
-
-  public setValue(value: number): void {
-    this.value = value;
-    this.valuePercentage = this.value / Bar.counter * 100;
-  }
+  public getValue(): number { return this.value; }
+  public setValue(newValue: number): void { this.value = newValue; }
+  public setState(newState: BarState): void { this.state = newState; }
 }

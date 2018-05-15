@@ -1,3 +1,3 @@
 <div class="bar-list">
-  <app-bar *ngFor="let bar of bars" [item]="bar"></app-bar>
+  <app-bar *ngFor="let bar of barList.bars" class="state-{{ bar.state }}" [style.height.%]="bar.value"></app-bar>
 </div>

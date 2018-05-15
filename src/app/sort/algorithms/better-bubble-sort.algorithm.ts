@@ -1,52 +1,56 @@
-import { Action } from './algorithm';
-import { BubbleSort } from './bubble-sort.algorithm';
+import { ActionList, Algorithm } from './algorithm';
+import { BarState } from '../bar/bar';
 
-export class BetterBubbleSort extends BubbleSort {
-  public updateCleanCycleBackwards(): void {
-    const startIndex = this.actions.length - 1;
-    const stopIndex = startIndex - this.cycleLength;
+export class BetterBubbleSort extends Algorithm {
+  protected arraySize: number;
 
-    for (let i = startIndex; i > stopIndex; i--) {
-      if (this.actions[i].type !== 'check') {
-        this.isCleanCycle = false;
-      }
-    }
+  protected sortArray(array: Uint16Array): void {
+    const arrayCopy = array.slice();
+    const actions: ActionList = {};
+    let cycleBoundaryTop = arrayCopy.length - 2;
+    let actionIndex = -1;
+    let arrayIndex = -1;
+    let isSorted = false;
+    let lastSwapInCycleIndex = -1;
 
-    if (this.cycleLength < this.bars.length - 1) {
-      this.cycleLength++;
-    }
-  }
+    while (!isSorted) {
+      arrayIndex++;
+      actionIndex++;
 
-  public getLastSwapActionInCurrentCycle(): Action {
-    const startIndex = this.actions.length - 1;
-    const stopIndex = startIndex - this.cycleLength;
-
-    for (let i = startIndex; i > stopIndex; i--) {
-      if (this.actions[i].type === 'swap') {
-        return this.actions[i];
-      }
-    }
-
-    return null;
-  }
-
-  public increment(): void {
-    this.iteration++;
-
-    if (this.iteration >= this.cycleLength) {
-      const lastSwapActionInCurrentCycle = this.getLastSwapActionInCurrentCycle();
-
-      if (lastSwapActionInCurrentCycle) {
-        this.cycleLength = lastSwapActionInCurrentCycle.firstIndex;
+      if (arrayCopy[arrayIndex] > arrayCopy[arrayIndex + 1]) {
+        [ arrayCopy[arrayIndex], arrayCopy[arrayIndex + 1] ] = [ arrayCopy[arrayIndex + 1], arrayCopy[arrayIndex] ];
+        lastSwapInCycleIndex = arrayIndex;
+        actions[actionIndex] = {
+          firstIndex: arrayIndex,
+          secondIndex: arrayIndex + 1,
+          state: BarState.Swapping,
+        };
       } else {
-        this.cycleLength--;
+        actions[actionIndex] = {
+          firstIndex: arrayIndex,
+          secondIndex: arrayIndex + 1,
+          state: BarState.Checking,
+        };
       }
 
-      if (this.cycleLength < 1) {
-        this.cycleLength = 1;
+      if (arrayIndex === cycleBoundaryTop) {
+        if (lastSwapInCycleIndex > 0) {
+          cycleBoundaryTop = lastSwapInCycleIndex - 1;
+          arrayIndex = -1;
+          lastSwapInCycleIndex = -1;
+        } else {
+          isSorted = true;
+        }
       }
-
-      this.iteration = 0;
     }
+
+    actions[actionIndex + 1] = {
+      firstIndex: -1,
+      secondIndex: -1,
+      state: BarState.Completed,
+    };
+
+    this.actions = actions;
+    this.arraySize = arrayCopy.length;
   }
 }

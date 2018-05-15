@@ -1,25 +1,27 @@
 import { ActionList, Algorithm } from './algorithm';
 import { BarState } from '../bar/bar';
 
-export class BubbleSort extends Algorithm {
+export class CocktailSort extends Algorithm {
   protected arraySize: number;
 
   protected sortArray(array: Uint16Array): void {
     const arrayCopy = array.slice();
     const actions: ActionList = {};
-    const cycleBoundaryTop = arrayCopy.length - 2;
+    let cycleBoundaryTop = arrayCopy.length - 2;
+    let cycleBoundaryBottom = 0;
     let actionIndex = -1;
     let arrayIndex = -1;
-    let isCyclePristine = true;
     let isSorted = false;
+    let lastSwapInCycleIndex = -1;
+    let order = 1;
 
     while (!isSorted) {
-      arrayIndex++;
+      arrayIndex += order;
       actionIndex++;
 
       if (arrayCopy[arrayIndex] > arrayCopy[arrayIndex + 1]) {
-        isCyclePristine = false;
         [ arrayCopy[arrayIndex], arrayCopy[arrayIndex + 1] ] = [ arrayCopy[arrayIndex + 1], arrayCopy[arrayIndex] ];
+        lastSwapInCycleIndex = arrayIndex;
         actions[actionIndex] = {
           firstIndex: arrayIndex,
           secondIndex: arrayIndex + 1,
@@ -33,12 +35,22 @@ export class BubbleSort extends Algorithm {
         };
       }
 
-      if (arrayIndex === cycleBoundaryTop) {
-        if (isCyclePristine) {
-          isSorted = true;
+      if (arrayIndex >= cycleBoundaryTop && order === 1) {
+        if (lastSwapInCycleIndex !== -1) {
+          cycleBoundaryTop = lastSwapInCycleIndex - 1;
+          arrayIndex = lastSwapInCycleIndex;
+          order = -1;
         } else {
-          isCyclePristine = true;
-          arrayIndex = -1;
+          isSorted = true;
+        }
+      } else if (arrayIndex <= cycleBoundaryBottom && order === -1) {
+        if (lastSwapInCycleIndex !== -1) {
+          cycleBoundaryBottom = lastSwapInCycleIndex + 1;
+          arrayIndex = lastSwapInCycleIndex;
+          order = 1;
+          lastSwapInCycleIndex = -1;
+        } else {
+          isSorted = true;
         }
       }
     }

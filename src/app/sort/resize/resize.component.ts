@@ -1,15 +1,14 @@
-import { Component, ChangeDetectionStrategy, OnInit, Input, ElementRef, HostListener, Renderer2, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Inject, Input, OnInit, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
-
 import { Subject, fromEvent } from 'rxjs';
-import { distinctUntilChanged, map, takeUntil, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, takeUntil } from 'rxjs/operators';
 
 const MIN_HEIGHT = 150;
 const DEFAULT_HEIGHT = 300;
 
 @Component({
   selector: 'app-resize',
-  templateUrl: './resize.component.html',
+  template: '<mat-icon>expand_more</mat-icon>',
   styleUrls: ['./resize.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

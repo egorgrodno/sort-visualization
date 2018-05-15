@@ -8,7 +8,7 @@
     <div class="alg-config-body">
       <mat-form-field>
         <mat-select placeholder="Algorithm" [(ngModel)]="aglorithmIndex"
-          [disabled]="state.value === 'automatic'" (selectionChange)="onAlgorithmIndexChange()">
+          [disabled]="state.value === sortStateEnum.Automatic" (selectionChange)="onAlgorithmIndexChange()">
           <mat-option *ngFor="let algorithm of algorithms; let i = index" [value]="i">
             {{ algorithm.name }}
           </mat-option>
@@ -17,7 +17,7 @@
 
       <mat-form-field>
         <input matInput [(ngModel)]="delay" type="number" placeholder="Iteration delay (ms)" min="0"
-          [disabled]="state.value === 'automatic'">
+          [disabled]="state.value === sortStateEnum.Automatic">
       </mat-form-field>
     </div>
   </div>
@@ -29,21 +29,25 @@
     </h2>
     <div class="alg-data-body">
       <mat-form-field>
-        <input matInput [(ngModel)]="arraySize" type="number" placeholder="Array size" min="2"
-          [disabled]="state.value === 'automatic'" (change)="onArraySizeChange()">
+        <input matInput [(ngModel)]="arraySize" type="number" placeholder="Array size" min="2" max="250"
+          [disabled]="state.value === sortStateEnum.Automatic" #arraySizeInput>
       </mat-form-field>
 
       <div class="btn-list">
         <button mat-raised-button title="Reset" (click)="onResetClick()"
-          [disabled]="state.value === 'automatic'">
+          [disabled]="state.value === sortStateEnum.Automatic || state.value === sortStateEnum.Pristine">
           <mat-icon>replay</mat-icon>
         </button>
+        <button mat-raised-button title="Shuffle" (click)="onShuffleClick()"
+          [disabled]="state.value === sortStateEnum.Automatic">
+          <mat-icon>shuffle</mat-icon>
+        </button>
         <button mat-raised-button title="Instant sort" (click)="onInstantSortClick()"
-          [disabled]="state.value === 'automatic'">
+          [disabled]="state.value === sortStateEnum.Automatic">
           <mat-icon>sort</mat-icon>
         </button>
         <button mat-raised-button title="Reverse" (click)="onReverseClick()"
-          [disabled]="state.value === 'automatic'">
+          [disabled]="state.value === sortStateEnum.Automatic">
           <mat-icon>swap_horiz</mat-icon>
         </button>
       </div>
@@ -70,7 +74,7 @@
 <mat-divider></mat-divider>
 
 <div class="bar-list-wrapper" #barListWrapper>
-  <app-bar-list [bars]="array"></app-bar-list>
+  <app-bar-list [barList]="barList"></app-bar-list>
 </div>
 
 <div class="resize-wrapper">
@@ -81,19 +85,21 @@
 
 
 <div class="alg-controls">
-  <button mat-button color="primary" (click)="onPreviousClick()"
-    [disabled]="state.value !== 'paused' && state.value !== 'completed'">
+  <button mat-button color="primary"
+    [mouseHold]="delay" (onAction)="onPreviousClick()"
+    [disabled]="state.value === sortStateEnum.Automatic || state.value === sortStateEnum.Pristine">
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
-  <button mat-button color="primary" (click)="onPauseClick()" *ngIf="state.value === 'automatic'">
+  <button mat-button color="primary" (click)="onPauseClick()" *ngIf="state.value === sortStateEnum.Automatic">
     <mat-icon>pause</mat-icon>
   </button>
-  <button mat-button color="primary" (click)="onStartClick()" *ngIf="state.value !== 'automatic'"
-    [disabled]="state.value === 'completed'">
+  <button mat-button color="primary" (click)="onStartClick()" *ngIf="state.value !== sortStateEnum.Automatic"
+    [disabled]="state.value === sortStateEnum.Completed">
     <mat-icon>play_arrow</mat-icon>
   </button>
-  <button mat-button color="primary" (click)="onNextClick()"
-    [disabled]="state.value !== 'paused' && state.value !== 'pristine'">
+  <button mat-button color="primary"
+    [mouseHold]="delay" (onAction)="onNextClick()"
+    [disabled]="state.value === sortStateEnum.Automatic || state.value === sortStateEnum.Completed">
     <mat-icon>keyboard_arrow_right</mat-icon>
   </button>
 </div>
