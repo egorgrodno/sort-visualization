@@ -5,7 +5,7 @@ import { getRandomInt } from '../../shared/utils';
 
 export class BarList {
   private array: Uint16Array;
-  private bars: Bar[];
+  public bars: Bar[];
 
   public onChange$ = new Subject<void>();
 
