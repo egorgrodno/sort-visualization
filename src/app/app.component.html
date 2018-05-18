@@ -1,11 +1,16 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
   <mat-icon>sort</mat-icon>
   <span>Sort visualization with Angular 6</span>
+
+  <div class="spacer"></div>
+
+  <app-theme-picker (onChange)="onThemeChange($event)"></app-theme-picker>
 </mat-toolbar>
 
 <div class="container">
   <div class="page-header">
     <h1>{{ title }}</h1>
+    <p>This application visualizes different sort algorithms step by step in a handy UI.</p>
   </div>
 
   <div class="page-body">

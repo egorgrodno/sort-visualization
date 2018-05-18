@@ -1,0 +1,33 @@
+@import '~@angular/material/theming';
+
+@mixin app-light-resize($theme) {
+  .resize-button {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .resize-button:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  .resize-button:active {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .heading {
+    color: rgba(0,0,0,.75);
+  }
+}
+
+@mixin app-dark-resize($theme) {
+  .resize-button {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+
+  .resize-button:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .resize-button:active {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+}

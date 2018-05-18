@@ -1,0 +1,19 @@
+
+@import '~@angular/material/theming';
+
+@mixin app-light-base($theme) {
+  $primary: map-get($theme, primary);
+
+  .page-header {
+    background-color: mat-color($primary);
+    color: white;
+  }
+}
+
+@mixin app-dark-base($theme) {
+  $primary: map-get($theme, primary);
+
+  .page-header {
+    background-color: mat-color($primary);
+  }
+}

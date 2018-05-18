@@ -2,20 +2,5 @@
   flex-grow: 1;
   margin-left: 1px;
   border-radius: 1px;
-  background-color: #3f51b5;
   will-change: height, background-color;
-}
-
-:host.state-1 {
-  background-color: #7580bd;
-}
-:host.state-2,
-:host.state-4 {
-  background-color: #ffafaf;
-}
-:host.state-3 {
-  background-color: #3fc380;
-}
-:host.state-5 {
-  background-color: #f8fb5a;
 }

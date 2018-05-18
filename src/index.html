@@ -12,6 +12,22 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 </head>
 <body>
-  <app-root></app-root>
+  <noscript>You must have javascript enabled in your browser to use this application.</noscript>
+  <app-root>
+    <style>
+      .loading-container {
+        align-items: center;
+        background: #fafafa;
+        color: rgba(0, 0, 0, 0.75);
+        display: flex;
+        font-family: "Roboto", Helvetica, sans-serif;
+        font-size: 20px;
+        font-weight: 300;
+        height: 100vh;
+        justify-content: center;
+      }
+    </style>
+    <div class="loading-container">Application is loading...</div>
+  </app-root>
 </body>
 </html>

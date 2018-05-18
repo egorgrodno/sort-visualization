@@ -4,7 +4,8 @@ import { MatCardModule, MatIconModule, MatToolbarModule } from '@angular/materia
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { SortModule } from './sort/sort.module';
+import { SortModule } from './sort';
+import { ThemePickerModule } from './theme-picker';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,11 @@ import { SortModule } from './sort/sort.module';
     MatToolbarModule,
 
     SortModule,
+    ThemePickerModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ],
 })
 export class AppModule { }

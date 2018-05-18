@@ -1,0 +1,26 @@
+@import '~@angular/material/theming';
+
+@mixin app-any-bar($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $success: mat-palette($mat-green);
+
+  app-bar {
+    background-color: mat-color($primary);
+  }
+
+  app-bar.state-1 {
+    background-color: mat-color($primary, A100);
+  }
+  app-bar.state-2,
+  app-bar.state-4 {
+    background-color: mat-color($warn, A100);
+  }
+  app-bar.state-3 {
+    background-color: mat-color($success, A200);
+  }
+  app-bar.state-5 {
+    background-color: mat-color($accent);
+  }
+}

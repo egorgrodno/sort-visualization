@@ -8,7 +8,7 @@ const DEFAULT_HEIGHT = 300;
 
 @Component({
   selector: 'app-resize',
-  template: '<mat-icon>expand_more</mat-icon>',
+  template: '<mat-icon color="primary">expand_more</mat-icon>',
   styleUrls: ['./resize.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

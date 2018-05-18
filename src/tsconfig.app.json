@@ -1,4 +1,7 @@
 {
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false
+  },
   "experimentalDecorators": true,
   "extends": "../tsconfig.json",
   "compilerOptions": {
