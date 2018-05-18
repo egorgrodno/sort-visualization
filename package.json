@@ -8,7 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:docs": "ng build --prod --output-path=./docs --deploy-url=/sort-visualization/ --base-href=/sort-visualization/"
   },
   "dependencies": {
     "@angular/animations": "^6.0.0",

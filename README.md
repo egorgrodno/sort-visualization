@@ -1,5 +1,7 @@
 # Sort visualization
 
+[Demo](https://egorgrodno.github.io/sort-visualization/)
+
 ![Preview](./preview.png)
 
 Sort visualization application inspired by [this video](https://www.youtube.com/watch?v=kPRA0W1kECg). The main purpose of the app is to show sort algorithms step by step, their differences and similarities in a handy UI.
