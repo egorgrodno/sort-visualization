@@ -20,10 +20,10 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private doc: Document,
     private appService: AppService,
     private renderer: Renderer2,
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.appService.appTitle.subscribe((title) => this.title = title);
+    this.appService.appTitle.subscribe((title) => (this.title = title));
     this.onThemeChange(IS_DEFAULT_THEME_DARK);
   }
 
@@ -32,8 +32,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public onThemeChange(isNewThemeDark: boolean) {
-    const classToAdd = isNewThemeDark && 'dark-theme' || 'light-theme';
-    const classToRemove = isNewThemeDark && 'light-theme' || 'dark-theme';
+    const classToAdd = (isNewThemeDark && 'dark-theme') || 'light-theme';
+    const classToRemove = (isNewThemeDark && 'light-theme') || 'dark-theme';
     this.renderer.addClass(this.doc.body, classToAdd);
     this.renderer.removeClass(this.doc.body, classToRemove);
   }

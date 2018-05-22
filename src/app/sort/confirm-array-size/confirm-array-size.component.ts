@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./confirm-array-size.component.css'],
 })
 export class ConfirmArraySizeComponent implements OnInit {
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 }

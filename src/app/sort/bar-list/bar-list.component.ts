@@ -13,14 +13,14 @@ export class BarListComponent implements OnInit, OnDestroy {
 
   private barListSub: Subscription;
 
-  constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-  ) { }
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.changeDetectorRef.detach();
     this.changeDetectorRef.detectChanges();
-    this.barListSub = this.barList.onChange$.subscribe(() => this.changeDetectorRef.detectChanges());
+    this.barListSub = this.barList.onChange$.subscribe(() =>
+      this.changeDetectorRef.detectChanges(),
+    );
   }
 
   ngOnDestroy() {

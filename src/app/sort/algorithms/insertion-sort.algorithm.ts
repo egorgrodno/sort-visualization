@@ -12,7 +12,7 @@ export class InsertionSort extends Algorithm {
     while (currentElementIndex !== cycleBoundaryTop) {
       for (let i = currentElementIndex - 1; i > 0; i--) {
         if (arrayCopy[i] < arrayCopy[i - 1]) {
-          [ arrayCopy[i], arrayCopy[i - 1] ] = [ arrayCopy[i - 1], arrayCopy[i] ];
+          [arrayCopy[i], arrayCopy[i - 1]] = [arrayCopy[i - 1], arrayCopy[i]];
           actions[++actionIndex] = {
             firstIndex: i,
             secondIndex: i - 1,

@@ -34,14 +34,14 @@ export class QuickSort extends Algorithm {
           firstIndex: pivotIndex,
           secondIndex: wallIndex,
         };
-        [ array[pivotIndex], array[wallIndex] ] = [ array[wallIndex], array[pivotIndex] ];
+        [array[pivotIndex], array[wallIndex]] = [array[wallIndex], array[pivotIndex]];
       } else if (array[i] < pivot) {
         actions[++this.actionIndex] = {
           state: BarState.Swapping,
           firstIndex: i,
           secondIndex: wallIndex,
         };
-        [ array[i], array[wallIndex] ] = [ array[wallIndex], array[i] ];
+        [array[i], array[wallIndex]] = [array[wallIndex], array[i]];
         wallIndex++;
       } else {
         actions[++this.actionIndex] = {
@@ -53,6 +53,6 @@ export class QuickSort extends Algorithm {
     }
 
     this.quickSort(array, actions, from, wallIndex);
-    this.quickSort(array, actions, wallIndex+1, to);
+    this.quickSort(array, actions, wallIndex + 1, to);
   }
 }

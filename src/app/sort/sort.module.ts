@@ -1,7 +1,17 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCardModule, MatDialogModule, MatDividerModule, MatExpansionModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
+import {
+  MAT_DIALOG_DEFAULT_OPTIONS,
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+} from '@angular/material';
 import { NgModule, Provider } from '@angular/core';
 
 import { BarComponent } from './bar/bar.component';
@@ -12,9 +22,7 @@ import { ResizeComponent } from './resize/resize.component';
 import { SortComponent } from './sort.component';
 
 @NgModule({
-  entryComponents: [
-    ConfirmArraySizeComponent,
-  ],
+  entryComponents: [ConfirmArraySizeComponent],
   declarations: [
     BarComponent,
     BarListComponent,
@@ -43,8 +51,6 @@ import { SortComponent } from './sort.component';
     MatInputModule,
     MatSelectModule,
   ],
-  exports: [
-    SortComponent,
-  ],
+  exports: [SortComponent],
 })
-export class SortModule { }
+export class SortModule {}

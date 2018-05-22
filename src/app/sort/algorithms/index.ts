@@ -10,22 +10,29 @@ export { Algorithm } from './algorithm';
 /**
  * Issue: https://github.com/Microsoft/TypeScript/issues/9347
  */
-export const ALGORITHMS: { name: string, useClass: Algorithm }[] = [{
-  name: 'Bubble Sort',
-  useClass: BubbleSort,
-}, {
-  name: 'Cocktail Sort',
-  useClass: CocktailSort,
-}, {
-  name: 'Selection Sort',
-  useClass: SelectionSort,
-}, {
-  name: 'Insertion Sort',
-  useClass: InsertionSort,
-}, {
-  name: 'Merge Sort',
-  useClass: MergeSort,
-}, {
-  name: 'Quick Sort',
-  useClass: QuickSort,
-}];
+export const ALGORITHMS: { name: string; useClass: Algorithm }[] = [
+  {
+    name: 'Bubble Sort',
+    useClass: BubbleSort,
+  },
+  {
+    name: 'Cocktail Sort',
+    useClass: CocktailSort,
+  },
+  {
+    name: 'Selection Sort',
+    useClass: SelectionSort,
+  },
+  {
+    name: 'Insertion Sort',
+    useClass: InsertionSort,
+  },
+  {
+    name: 'Merge Sort',
+    useClass: MergeSort,
+  },
+  {
+    name: 'Quick Sort',
+    useClass: QuickSort,
+  },
+];

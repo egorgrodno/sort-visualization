@@ -1,5 +1,15 @@
 import { DOCUMENT } from '@angular/platform-browser';
-import { Directive, ElementRef, EventEmitter, Inject, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Subscription, fromEvent, interval, timer } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 
@@ -14,13 +24,10 @@ export class MouseHoldDirective implements OnDestroy, OnChanges {
 
   private mouseSub: Subscription;
 
-  constructor(
-    @Inject(DOCUMENT) private doc: Document,
-    private host: ElementRef,
-  ) { }
+  constructor(@Inject(DOCUMENT) private doc: Document, private host: ElementRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if ('disabled' in changes)  {
+    if ('disabled' in changes) {
       if (this.disabled) {
         if (this.mouseSub) {
           this.mouseSub.unsubscribe();
@@ -31,9 +38,7 @@ export class MouseHoldDirective implements OnDestroy, OnChanges {
           .pipe(
             tap(() => this.onAction.emit()),
             switchMap(() =>
-              timer(350).pipe(
-                takeUntil(fromEvent(this.doc.documentElement, 'mouseup')),
-              ),
+              timer(350).pipe(takeUntil(fromEvent(this.doc.documentElement, 'mouseup'))),
             ),
             switchMap(() =>
               interval(this.duration).pipe(

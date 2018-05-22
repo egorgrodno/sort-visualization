@@ -11,7 +11,6 @@ export class SelectionSort extends Algorithm {
     let lowestElementIndex = cycleBoundaryBottom;
 
     while (cycleBoundaryBottom !== cycleBoundaryTop) {
-
       for (let i = cycleBoundaryBottom + 1; i <= cycleBoundaryTop; i++) {
         actions[++actionIndex] = {
           firstIndex: lowestElementIndex,
@@ -30,7 +29,10 @@ export class SelectionSort extends Algorithm {
           secondIndex: cycleBoundaryBottom,
           state: BarState.Swapping,
         };
-        [ arrayCopy[lowestElementIndex], arrayCopy[cycleBoundaryBottom] ] = [ arrayCopy[cycleBoundaryBottom], arrayCopy[lowestElementIndex] ];
+        [arrayCopy[lowestElementIndex], arrayCopy[cycleBoundaryBottom]] = [
+          arrayCopy[cycleBoundaryBottom],
+          arrayCopy[lowestElementIndex],
+        ];
       }
 
       cycleBoundaryBottom++;

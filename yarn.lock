@@ -186,6 +186,12 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/service-worker@^6.0.0":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-6.0.2.tgz#be4e1d7bdd337978f39af4cf76c7811395eedd47"
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngtools/webpack@6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-6.0.1.tgz#1a3eee13f7319a5c2b758ae461c386e1b6c80645"

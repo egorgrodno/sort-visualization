@@ -30,13 +30,20 @@ export class MergeSort extends Algorithm {
 
     const halfIndex = Math.floor((partition.from + partition.to + 1) / 2);
 
-    return this.merge(array, actions,
+    return this.merge(
+      array,
+      actions,
       this.mergeSort(array, actions, { from: partition.from, to: halfIndex }),
       this.mergeSort(array, actions, { from: halfIndex, to: partition.to }),
     );
   }
 
-  private merge(array: Uint16Array, actions: ActionList, partition1: Partition, partition2: Partition): Partition {
+  private merge(
+    array: Uint16Array,
+    actions: ActionList,
+    partition1: Partition,
+    partition2: Partition,
+  ): Partition {
     const arrayLength1 = partition1.to;
     const arrayLength2 = partition2.to;
     let arrayIndex1 = partition1.from;
@@ -46,7 +53,7 @@ export class MergeSort extends Algorithm {
     const sortedArray = new Uint16Array(sortedArrayLength);
     let sortedArrayIndex = 0;
 
-    while(arrayIndex1 < arrayLength1 && arrayIndex2 < arrayLength2) {
+    while (arrayIndex1 < arrayLength1 && arrayIndex2 < arrayLength2) {
       actions[++this.actionIndex] = {
         state: BarState.Checking,
         firstIndex: arrayIndex1,
@@ -71,7 +78,7 @@ export class MergeSort extends Algorithm {
       }
     }
 
-    while(arrayIndex1 < arrayLength1) {
+    while (arrayIndex1 < arrayLength1) {
       actions[++this.actionIndex] = {
         state: BarState.SwappingToShadowArray,
         index: arrayIndex1,
@@ -81,7 +88,7 @@ export class MergeSort extends Algorithm {
       arrayIndex1++;
     }
 
-    while(arrayIndex2 < arrayLength2) {
+    while (arrayIndex2 < arrayLength2) {
       actions[++this.actionIndex] = {
         state: BarState.SwappingToShadowArray,
         index: arrayIndex2,

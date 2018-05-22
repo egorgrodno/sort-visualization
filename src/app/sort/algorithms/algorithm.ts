@@ -31,10 +31,7 @@ interface SwapFromShadowAction extends BaseAction {
   newValue: number;
 }
 
-type Action = CompleteAction
-  | CheckOrSwapAction
-  | SwapToShadowAction
-  | SwapFromShadowAction;
+type Action = CompleteAction | CheckOrSwapAction | SwapToShadowAction | SwapFromShadowAction;
 
 export interface ActionList {
   [key: number]: Action;
@@ -86,7 +83,11 @@ export abstract class Algorithm {
 
     if (this.currentAction.state === BarState.Checking) {
       this.comparisonCount++;
-    } else if (this.currentAction.state === BarState.Swapping || this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
+    } else if (
+      this.currentAction.state === BarState.Swapping ||
+      this.currentAction.state === BarState.SwappingToShadowArray ||
+      this.currentAction.state === BarState.SwappingFromShadowArray
+    ) {
       this.swapCount++;
     }
 
@@ -102,7 +103,11 @@ export abstract class Algorithm {
     if (this.currentAction) {
       if (this.currentAction.state === BarState.Checking) {
         this.comparisonCount--;
-      } else if (this.currentAction.state === BarState.Swapping || this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
+      } else if (
+        this.currentAction.state === BarState.Swapping ||
+        this.currentAction.state === BarState.SwappingToShadowArray ||
+        this.currentAction.state === BarState.SwappingFromShadowArray
+      ) {
         this.swapCount--;
       }
       this.cancelCurrentAction();
@@ -120,22 +125,40 @@ export abstract class Algorithm {
   }
 
   private displayCurrentAction(): void {
-    if (this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
+    if (
+      this.currentAction.state === BarState.SwappingToShadowArray ||
+      this.currentAction.state === BarState.SwappingFromShadowArray
+    ) {
       this.barList.setBarState(this.currentAction.index, this.currentAction.state);
     } else {
       /** Action state can't be Completed at this point */
-      this.barList.setBarState((this.currentAction as CheckOrSwapAction).firstIndex, this.currentAction.state);
-      this.barList.setBarState((this.currentAction as CheckOrSwapAction).secondIndex, this.currentAction.state);
+      this.barList.setBarState(
+        (this.currentAction as CheckOrSwapAction).firstIndex,
+        this.currentAction.state,
+      );
+      this.barList.setBarState(
+        (this.currentAction as CheckOrSwapAction).secondIndex,
+        this.currentAction.state,
+      );
     }
   }
 
   private flushCurrentAction(): void {
-    if (this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
+    if (
+      this.currentAction.state === BarState.SwappingToShadowArray ||
+      this.currentAction.state === BarState.SwappingFromShadowArray
+    ) {
       this.barList.setBarState(this.currentAction.index, BarState.Default);
     } else {
       /** Action state can't be Completed at this point */
-      this.barList.setBarState((this.currentAction as CheckOrSwapAction).firstIndex, BarState.Default);
-      this.barList.setBarState((this.currentAction as CheckOrSwapAction).secondIndex, BarState.Default);
+      this.barList.setBarState(
+        (this.currentAction as CheckOrSwapAction).firstIndex,
+        BarState.Default,
+      );
+      this.barList.setBarState(
+        (this.currentAction as CheckOrSwapAction).secondIndex,
+        BarState.Default,
+      );
     }
   }
 
@@ -164,7 +187,10 @@ export abstract class Algorithm {
       for (let i = 0, arraySize = this.arraySize; i < arraySize; i++) {
         this.barList.setBarState(i, BarState.Default);
       }
-    } else if (this.currentAction.state === BarState.SwappingToShadowArray || this.currentAction.state === BarState.SwappingFromShadowArray) {
+    } else if (
+      this.currentAction.state === BarState.SwappingToShadowArray ||
+      this.currentAction.state === BarState.SwappingFromShadowArray
+    ) {
       this.barList.setBarState(this.currentAction.index, BarState.Default);
       if (this.currentAction.state === BarState.SwappingFromShadowArray) {
         this.barList.setBarValue(this.currentAction.index, this.currentAction.value);

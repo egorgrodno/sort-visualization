@@ -2,7 +2,14 @@ import { AnimationEvent, animate, style, transition, trigger } from '@angular/an
 import { BehaviorSubject, Observable, Subscription, fromEvent, interval, of } from 'rxjs';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil }from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  takeUntil,
+} from 'rxjs/operators';
 
 import { ALGORITHMS, Algorithm } from './algorithms';
 import { AppService } from '../shared/app.service';
@@ -25,12 +32,15 @@ const MAX_ARRAY_SIZE = 50;
   animations: [
     trigger('settingsBlockAnim', [
       transition(':leave', [
-        animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 0, transform: 'translateX(20px)' })),
+        animate(
+          '150ms cubic-bezier(0.25, 0.8, 0.25, 1)',
+          style({ opacity: 0, transform: 'translateX(20px)' }),
+        ),
         style({ width: '*', height: 0 }),
         animate('200ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ width: 0 })),
       ]),
       transition(':enter', [
-        style({ width: 0 , height: 0, opacity: 0, transform: 'translateX(20px)' }),
+        style({ width: 0, height: 0, opacity: 0, transform: 'translateX(20px)' }),
         animate('200ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ width: '*' })),
         style({ height: '*' }),
         animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 1, transform: 'none' })),
@@ -56,10 +66,7 @@ export class SortComponent implements OnInit, OnDestroy {
 
   private arraySizeInputSub: Subscription;
 
-  constructor(
-    private appService: AppService,
-    private dialog: MatDialog,
-  ) { }
+  constructor(private appService: AppService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.barList = new BarList();
@@ -92,18 +99,19 @@ export class SortComponent implements OnInit, OnDestroy {
         debounceTime(500),
         distinctUntilChanged(),
         /** Check for large size values and confirm them */
-        switchMap((value) => value > MAX_ARRAY_SIZE && value > this.barList.getArraySize()
-                          ? this.openConfirmArraySizeDialog()
-                          : of(true)),
+        switchMap(
+          (value) =>
+            value > MAX_ARRAY_SIZE && value > this.barList.getArraySize()
+              ? this.openConfirmArraySizeDialog()
+              : of(true),
+        ),
         filter((isConfirmed) => isConfirmed),
       )
       .subscribe(() => this.onArraySizeChange());
   }
 
   public openConfirmArraySizeDialog(): Observable<boolean> {
-    return this.dialog
-      .open<ConfirmArraySizeComponent>(ConfirmArraySizeComponent)
-      .afterClosed();
+    return this.dialog.open<ConfirmArraySizeComponent>(ConfirmArraySizeComponent).afterClosed();
   }
 
   public setState(newState: SortState): void {
@@ -118,7 +126,7 @@ export class SortComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.state.pipe(filter((state) => state !== SortState.Automatic))),
         map(() => this.currentAlgorithm.next()),
-        filter((isCompleted) => isCompleted)
+        filter((isCompleted) => isCompleted),
       )
       .subscribe(() => this.state.next(SortState.Completed));
   }

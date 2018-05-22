@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppService {
-
   public appTitle: Observable<string>;
 
   private _appTitle: Subject<string>;

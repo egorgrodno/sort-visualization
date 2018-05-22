@@ -15,7 +15,10 @@ export class BubbleSort extends Algorithm {
       arrayIndex++;
 
       if (arrayCopy[arrayIndex] > arrayCopy[arrayIndex + 1]) {
-        [ arrayCopy[arrayIndex], arrayCopy[arrayIndex + 1] ] = [ arrayCopy[arrayIndex + 1], arrayCopy[arrayIndex] ];
+        [arrayCopy[arrayIndex], arrayCopy[arrayIndex + 1]] = [
+          arrayCopy[arrayIndex + 1],
+          arrayCopy[arrayIndex],
+        ];
         lastSwapInCycleIndex = arrayIndex;
         actions[++actionIndex] = {
           firstIndex: arrayIndex,

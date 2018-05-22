@@ -17,7 +17,10 @@ export class CocktailSort extends Algorithm {
       arrayIndex += order;
 
       if (arrayCopy[arrayIndex] > arrayCopy[arrayIndex + 1]) {
-        [ arrayCopy[arrayIndex], arrayCopy[arrayIndex + 1] ] = [ arrayCopy[arrayIndex + 1], arrayCopy[arrayIndex] ];
+        [arrayCopy[arrayIndex], arrayCopy[arrayIndex + 1]] = [
+          arrayCopy[arrayIndex + 1],
+          arrayCopy[arrayIndex],
+        ];
         lastSwapInCycleIndex = arrayIndex;
         actions[++actionIndex] = {
           firstIndex: arrayIndex,
