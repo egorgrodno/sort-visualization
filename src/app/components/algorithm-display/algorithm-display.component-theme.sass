@@ -1,0 +1,21 @@
+@mixin algorithm-display-light-theme($theme)
+  @include algorithm-display-theme($theme)
+  .bar.bar--sorted
+    background: rgba(#000, 0.15)
+
+@mixin algorithm-display-dark-theme($theme)
+  @include algorithm-display-theme($theme)
+  .bar.bar--sorted
+    background: rgba(#fff, 0.15)
+
+@mixin algorithm-display-theme($theme)
+  $primary: map-get($theme, primary)
+  $accent: map-get($theme, accent)
+  $warn: map-get($theme, warn)
+  .bar
+    background-color: mat-color($primary)
+    &.bar--comparing
+      background: mat-color($accent)
+    &.bar--swapping
+      background: mat-color($warn)
+

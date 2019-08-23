@@ -1,0 +1,20 @@
+<header class="header">
+  <h1 class="header__title">{{ algorithmName }}</h1>
+  <mat-chip-list class="header__complexity">
+    <mat-chip>
+      <i>Best</i>
+      &nbsp;
+      <sv-complexity [complexity]="algorithmComplexity[0]"></sv-complexity>
+    </mat-chip>
+    <mat-chip>
+      <i>Average</i>
+      &nbsp;
+      <sv-complexity [complexity]="algorithmComplexity[1]"></sv-complexity>
+    </mat-chip>
+    <mat-chip>
+      <i>Worst</i>
+      &nbsp;
+      <sv-complexity [complexity]="algorithmComplexity[2]"></sv-complexity>
+    </mat-chip>
+  </mat-chip-list>
+</header>

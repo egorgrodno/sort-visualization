@@ -1,27 +1,38 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { MatCardModule, MatIconModule, MatToolbarModule } from '@angular/material';
-import { NgModule } from '@angular/core';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserModule } from '@angular/platform-browser'
+import { ReactiveFormsModule } from '@angular/forms'
+import { NgModule } from '@angular/core'
 
-import { AppComponent } from './app.component';
-import { SortModule } from './sort';
-import { ThemePickerModule } from './theme-picker';
-import { environment } from '../environments/environment';
+import {
+  AlgorithmControlComponent,
+  AlgorithmDisplayComponent,
+  ComplexityComponent,
+  HeaderComponent,
+  ResizeButtonComponent,
+  SettingsComponent,
+} from './components'
+import { HoldDirective, VertResizeDirective } from './directives'
+
+import { MaterialModule } from './material.module'
+import { AppComponent } from './app.component'
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    AlgorithmControlComponent,
+    AlgorithmDisplayComponent,
+    ComplexityComponent,
+    HeaderComponent,
+    ResizeButtonComponent,
+    SettingsComponent,
+    HoldDirective,
+    VertResizeDirective,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-
-    MatCardModule,
-    MatIconModule,
-    MatToolbarModule,
-
-    SortModule,
-    ThemePickerModule,
+    ReactiveFormsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

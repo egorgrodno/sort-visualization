@@ -1,0 +1,44 @@
+<button
+  *ngIf="variant === AlgorithmControlVariant.Prev"
+  mat-icon-button
+  color="primary"
+  [disabled]="!!disabled"
+  (svHold)="action.emit()">
+  <mat-icon>skip_previous</mat-icon>
+</button>
+
+<button
+  *ngIf="variant === AlgorithmControlVariant.FastRewind"
+  mat-icon-button
+  color="primary"
+  [disabled]="!!disabled"
+  (click)="action.emit()">
+  <mat-icon>fast_rewind</mat-icon>
+</button>
+
+<button
+  *ngIf="variant === AlgorithmControlVariant.Pause"
+  mat-icon-button
+  color="primary"
+  [disabled]="!!disabled"
+  (click)="action.emit()">
+  <mat-icon>pause</mat-icon>
+</button>
+
+<button
+  *ngIf="variant === AlgorithmControlVariant.FastForward"
+  mat-icon-button
+  color="primary"
+  [disabled]="!!disabled"
+  (click)="action.emit()">
+  <mat-icon>fast_forward</mat-icon>
+</button>
+
+<button
+  *ngIf="variant === AlgorithmControlVariant.Next"
+  mat-icon-button
+  color="primary"
+  [disabled]="!!disabled"
+  (svHold)="action.emit()">
+  <mat-icon>skip_next</mat-icon>
+</button>

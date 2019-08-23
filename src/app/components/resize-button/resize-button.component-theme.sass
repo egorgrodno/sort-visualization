@@ -1,0 +1,15 @@
+@mixin resize-button-dark-theme()
+  @include resize-button-theme(#fff)
+
+@mixin resize-button-light-theme()
+  @include resize-button-theme(#000)
+
+@mixin resize-button-theme($base-color)
+  .resize
+    background-color: rgba($base-color, 0.03)
+
+  .resize:hover
+    background-color: rgba($base-color, 0.06)
+
+  .resize:active
+    background-color: rgba($base-color, 0.15)

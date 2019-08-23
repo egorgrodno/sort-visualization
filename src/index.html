@@ -4,32 +4,32 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Sort visualization with Angular 6</title>
+  <title>Sort visualization with Angular 8</title>
   <base href="/">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1976d2">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,500i&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="mat-typography">
   <noscript>You must have javascript enabled in your browser to use this application.</noscript>
-  <app-root>
+  <sv-root>
     <style>
       .loading-container {
-        align-items: center;
-        background: #fafafa;
-        color: rgba(0, 0, 0, 0.75);
+        height: 100vh;
         display: flex;
-        font-family: "Roboto", Helvetica, sans-serif;
+        align-items: center;
+        justify-content: center;
+
+        font-family: Roboto, Helvetica, sans-serif;
         font-size: 20px;
         font-weight: 300;
-        height: 100vh;
-        justify-content: center;
+
+        background: #fafafa;
+        color: rgba(0, 0, 0, 0.75);
       }
     </style>
     <div class="loading-container">Application is loading...</div>
-  </app-root>
+  </sv-root>
 </body>
 </html>
