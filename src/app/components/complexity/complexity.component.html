@@ -1,0 +1,19 @@
+<span *ngIf="complexity === Complexity.Constant">
+  O(1)
+</span>
+
+<span *ngIf="complexity === Complexity.Logarithmic">
+  O(log n)
+</span>
+
+<span *ngIf="complexity === Complexity.Linear">
+  O(n)
+</span>
+
+<span *ngIf="complexity === Complexity.LogLinear">
+  O(n log n)
+</span>
+
+<span *ngIf="complexity === Complexity.PolynomialQuadratic">
+  O(n<sup class="complexity__sup">2</sup>)
+</span>

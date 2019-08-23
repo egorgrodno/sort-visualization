@@ -1,0 +1,36 @@
+@import '~@angular/material/theming'
+
+// Custom component themes
+@import 'app/app.component-theme'
+@import 'app/components/algorithm-display/algorithm-display.component-theme'
+@import 'app/components/resize-button/resize-button.component-theme'
+
+// Light theme
+$light-primary:    mat-palette($mat-amber, A400)
+$light-accent:     mat-palette($mat-blue, A200)
+$light-warn:       mat-palette($mat-red, A200)
+$light-theme:      mat-light-theme($light-primary, $light-accent, $light-warn)
+$light-background: map-get($light-theme, background)
+
+// Dark theme
+$dark-primary:    mat-palette($mat-teal, 500)
+$dark-accent:     mat-palette($mat-orange, A200)
+$dark-warn:       mat-palette($mat-red, A200)
+$dark-theme:      mat-dark-theme($dark-primary, $dark-accent, $dark-warn)
+$dark-background: map-get($dark-theme, background)
+
+@include mat-core()
+
+body
+  @include angular-material-theme($light-theme)
+  @include app-theme($light-theme)
+  @include algorithm-display-light-theme($light-theme)
+  @include resize-button-light-theme()
+  background: mat-color($light-background, background)
+
+body.dark-theme
+  @include angular-material-theme($dark-theme)
+  @include app-theme($dark-theme)
+  @include algorithm-display-dark-theme($dark-theme)
+  @include resize-button-dark-theme()
+  background: mat-color($dark-background, background)

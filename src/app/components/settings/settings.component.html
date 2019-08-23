@@ -1,0 +1,83 @@
+<h2 class="mat-h2">
+  <mat-icon class="header-icon">settings</mat-icon>
+  Settings
+</h2>
+
+<mat-form-field appearance="fill">
+  <mat-label>Algorithm</mat-label>
+  <mat-select
+    [value]="algorithm"
+    [disabled]="disabled"
+    (selectionChange)="algorithmChange.emit($event.value)">
+    <mat-option
+      *ngFor="let item of algorithmMap | keyvalue"
+      [value]="item.key">{{ item.value.name }}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<form [formGroup]="form" autocomplete="off">
+  <div class="row">
+    <div class="row__item row__item--grow">
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Array size ({{ arraySizeMin }}-{{ arraySizeMax}})</mat-label>
+        <input matInput formControlName="arraySize" type="number">
+      </mat-form-field>
+    </div>
+
+    <div class="row__item row__item--grow">
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Iteration delay ({{ iterationDelayMin }}-{{ iterationDelayMax }})</mat-label>
+        <input matInput formControlName="iterationDelay" type="number">
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="row__item row__item--gutter-bottom">
+    <button mat-raised-button
+      class="full-width"
+      color="primary"
+      [disabled]="disabled || resetDisabled"
+      (click)="resetClick.emit()">
+      <mat-icon class="icon-offset">replay</mat-icon>
+      Reset
+    </button>
+  </div>
+
+  <div class="row__item row__item--gutter-bottom">
+    <button mat-raised-button
+      class="full-width"
+      color="primary"
+      [disabled]="disabled"
+      (click)="shuffleClick.emit()">
+      <mat-icon class="icon-offset">shuffle</mat-icon>
+      Shuffle
+    </button>
+  </div>
+
+  <div class="row__item row__item--gutter-bottom">
+    <button mat-raised-button
+      class="full-width"
+      color="primary"
+      [disabled]="disabled"
+      (click)="sortClick.emit()">
+      <mat-icon class="icon-offset">sort</mat-icon>
+      Sort
+    </button>
+  </div>
+
+  <div class="row__item row__item--gutter-bottom">
+    <button mat-raised-button
+      class="full-width"
+      color="primary"
+      [disabled]="disabled"
+      (click)="reverseClick.emit()">
+      <mat-icon class="icon-offset">swap_horiz</mat-icon>
+      Reverse
+    </button>
+  </div>
+</div>
+
+<p class="stats">Comparisons: <strong>{{ comparisonCount }}</strong></p>
+<p class="stats">Swaps: <strong>{{ swapCount }}</strong></p>

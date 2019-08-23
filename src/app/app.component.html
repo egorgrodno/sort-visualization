@@ -1,19 +1,90 @@
-<mat-toolbar color="primary" class="mat-elevation-z6">
-  <mat-icon>sort</mat-icon>
-  <span>Sort visualization with Angular 6</span>
+<mat-toolbar color="primary" class="app__toolbar mat-elevation-z6">
+  <mat-icon class="icon-offset">sort</mat-icon>
+  <span class="app__toolbar-text">Sort visualization with Angular 8</span>
 
   <div class="spacer"></div>
 
-  <app-theme-picker (onChange)="onThemeChange($event)"></app-theme-picker>
+  <button class="app__toolbar-button" mat-raised-button (click)="switchTheme()">
+    <mat-icon class="icon-offset">style</mat-icon>
+    Switch theme
+  </button>
 </mat-toolbar>
 
-<div class="container">
-  <div class="page-header">
-    <h1>{{ title }}</h1>
-    <p>This application visualizes different sort algorithms step by step in a handy UI.</p>
-  </div>
+<sv-header class="app__ribbon" [algorithm]="sort.getAlgorithm()"></sv-header>
 
-  <div class="page-body">
-    <app-sort></app-sort>
-  </div>
-</div>
+<main class="app__content-wrapper">
+  <mat-card class="content">
+    <div class="content__body">
+      <div class="content__algorithm-wrapper">
+        <div class="content__algorithm" #algorithmDisplay>
+          <sv-algorithm-display
+            [arr]="sort.getArray()"
+            [currentInstruction]="sort.getCurrentInstruction()"
+            [sorted]="sortState.reachedEnd$ | async"
+          ></sv-algorithm-display>
+        </div>
+
+        <sv-resize-button [svVertResize]="algorithmDisplay" [svVertResizeMinHeight]="300">
+          <mat-icon color="primary">keyboard_arrow_down</mat-icon>
+        </sv-resize-button>
+      </div>
+
+      <sv-resize-button (click)="toggleSettingsOpen()">
+        <mat-icon color="primary" class="icon" [class.icon__rotated]="!settingsOpen">keyboard_arrow_right</mat-icon>
+      </sv-resize-button>
+
+      <div *ngIf="settingsOpen" class="content__settings">
+        <sv-settings
+          [algorithm]="sort.getAlgorithm()"
+          [comparisonCount]="sort.getComparisonCount()"
+          [swapCount]="sort.getSwapCount()"
+          [arraySize]="sort.getArraySize()"
+          [iterationDelay]="iterationDelay"
+          [disabled]="(sortState.playing$ | async) === true"
+          [resetDisabled]="(sortState.reachedStart$ | async) === true"
+          (algorithmChange)="handleAlgorithmChange($event)"
+          (arraySizeChange)="handleArrSizeChange($event)"
+          (iterationDelayChange)="handleIterationDelayChange($event)"
+          (resetClick)="handleResetClick()"
+          (shuffleClick)="handleShuffleClick()"
+          (sortClick)="handleSortClick()"
+          (reverseClick)="handleReverseClick()"
+          ></sv-settings>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="content__footer">
+      <sv-algorithm-control
+        [variant]="AlgorithmControlVariant.Prev"
+        [disabled]="(sortState.playing$ | async) || (sortState.reachedStart$ | async)"
+        (action)="prev()">
+      </sv-algorithm-control>
+
+      <sv-algorithm-control
+        [variant]="AlgorithmControlVariant.FastRewind"
+        [disabled]="(sortState.playingBackward$ | async) || (sortState.reachedStart$ | async)"
+        (action)="sortState.set(SortState.PlayingBackward)">
+      </sv-algorithm-control>
+
+      <sv-algorithm-control
+        [variant]="AlgorithmControlVariant.Pause"
+        [disabled]="sortState.paused$ | async"
+        (action)="sortState.set(SortState.Paused)">
+      </sv-algorithm-control>
+
+      <sv-algorithm-control
+        [variant]="AlgorithmControlVariant.FastForward"
+        [disabled]="(sortState.playingForward$ | async) || (sortState.reachedEnd$ | async)"
+        (action)="sortState.set(SortState.PlayingForward)">
+      </sv-algorithm-control>
+
+      <sv-algorithm-control
+        [variant]="AlgorithmControlVariant.Next"
+        [disabled]="(sortState.playing$ | async) || (sortState.reachedEnd$ | async)"
+        (action)="next()">
+      </sv-algorithm-control>
+    </div>
+  </mat-card>
+</main>
