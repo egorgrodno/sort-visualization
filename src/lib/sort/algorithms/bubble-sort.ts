@@ -3,18 +3,18 @@ import { InstructionModule } from '../instruction-module'
 
 const bubbleSort = (arr: number[], instructionModule: InstructionModule): void => {
   const mutableArr = arr.slice()
-  let rightBoundary = mutableArr.length - 1
+  let end = mutableArr.length - 1
   let sorted = true
 
-  for (let i = 0; i <= rightBoundary; i++) {
-    if (i === rightBoundary) {
+  for (let i = 0; i <= end; i++) {
+    if (i === end) {
       if (sorted) {
         break
       }
 
       i = -1
       sorted = true
-      rightBoundary--
+      end--
       continue
     }
 

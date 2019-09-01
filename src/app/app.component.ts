@@ -7,7 +7,7 @@ import { AlgorithmType, SortModule } from 'lib/sort'
 import { AlgorithmControlVariant } from './components'
 import { SortState, newSortState } from './sort-state'
 
-const initialAlgorithm = AlgorithmType.QuickSort
+const initialAlgorithm = AlgorithmType.Heapsort
 const initialArrSize = 100
 const initialIterationDelay = 0
 const darkThemeClass = 'dark-theme'

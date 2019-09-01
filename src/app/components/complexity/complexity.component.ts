@@ -12,4 +12,7 @@ export class ComplexityComponent {
 
   @Input()
   public complexity = Complexity.Constant
+
+  @Input()
+  public symbol = ''
 }

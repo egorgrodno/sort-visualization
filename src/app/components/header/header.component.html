@@ -4,17 +4,28 @@
     <mat-chip>
       <i>Best</i>
       &nbsp;
-      <sv-complexity [complexity]="algorithmComplexity[0]"></sv-complexity>
+      <sv-complexity
+        [complexity]="algorithmComplexity[0]"
+        symbol="&Omega;"
+      ></sv-complexity>
     </mat-chip>
+
     <mat-chip>
       <i>Average</i>
       &nbsp;
-      <sv-complexity [complexity]="algorithmComplexity[1]"></sv-complexity>
+      <sv-complexity
+        [complexity]="algorithmComplexity[0]"
+        symbol="&Theta;"
+      ></sv-complexity>
     </mat-chip>
+
     <mat-chip>
       <i>Worst</i>
       &nbsp;
-      <sv-complexity [complexity]="algorithmComplexity[2]"></sv-complexity>
+      <sv-complexity
+        [complexity]="algorithmComplexity[0]"
+        symbol="O"
+      ></sv-complexity>
     </mat-chip>
   </mat-chip-list>
 </header>

@@ -3,30 +3,30 @@ import { InstructionModule } from '../instruction-module'
 
 const cocktailSort = (arr: number[], instructionModule: InstructionModule): void => {
   const mutableArr = arr.slice()
-  let leftBoundary = 0
-  let rightBoundary = mutableArr.length - 1
+  let start = 0
+  let end = mutableArr.length - 1
   let sorted = true
   let i = 0
   let ltr = true
 
-  while (leftBoundary < rightBoundary) {
-    if (ltr && i === rightBoundary) {
+  while (start < end) {
+    if (ltr && i === end) {
       if (sorted) {
         break
       }
 
-      rightBoundary--
-      i = rightBoundary - 1
+      end--
+      i = end - 1
       ltr = false
       sorted = true
       continue
-    } else if (!ltr && i === leftBoundary - 1) {
+    } else if (!ltr && i === start - 1) {
       if (sorted) {
         break
       }
 
-      leftBoundary++
-      i = leftBoundary
+      start++
+      i = start
       ltr = true
       sorted = true
       continue

@@ -1,9 +1,10 @@
 import {
   bubbleSortAlgorithm,
   cocktailSortAlgorithm,
+  heapsortAlgorithm,
   insertionSortAlgorithm,
   mergeSortAlgorithm,
-  quickSortAlgorithm,
+  quicksortAlgorithm,
   selectionSortAlgorithm,
 } from './algorithms'
 import { InstructionModule } from './instruction-module'
@@ -13,8 +14,9 @@ export enum AlgorithmType {
   CocktailSort,
   SelectionSort,
   InsertionSort,
-  QuickSort,
+  Quicksort,
   MergeSort,
+  Heapsort,
 }
 
 export enum Complexity {
@@ -77,12 +79,21 @@ export const algorithmMap = new Map<AlgorithmType, AlgorithmDefinition>()
     ],
     fn: mergeSortAlgorithm,
   })
-  .set(AlgorithmType.QuickSort, {
+  .set(AlgorithmType.Quicksort, {
     name: 'Quicksort',
     complexity: [
       Complexity.LogLinear,
       Complexity.LogLinear,
       Complexity.PolynomialQuadratic,
     ],
-    fn: quickSortAlgorithm,
+    fn: quicksortAlgorithm,
+  })
+  .set(AlgorithmType.Heapsort, {
+    name: 'Heapsort',
+    complexity: [
+      Complexity.LogLinear,
+      Complexity.LogLinear,
+      Complexity.LogLinear,
+    ],
+    fn: heapsortAlgorithm,
   })
